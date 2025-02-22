@@ -1,0 +1,30 @@
+{
+	"pypypypy": 
+	{
+		"prefix": "py",
+		"body": [
+			"from os import path",
+			"import math, sys",
+			"",
+			"#idhere",
+			"input = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")",
+			"nint = lambda: int(input())",
+			"mint = lambda: map(int, input().split())",
+			"aint = lambda: list(map(int, input().split()))",
+			"def printlist(a): print(' '.join(map(str, a)))",
+			"def fileio():",
+			"\tsys.stdin = open(\"E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt\", mode = 'r')",
+			"\tsys.stdout = open(\"E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt\", mode = 'w')",
+			"###############################################",
+			"",
+			"if path.exists(\"E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt\"):",
+			"\tfileio()",
+			"",
+			"t = nint()",
+			"for _ in range(t):",
+			"\tn = nint()",
+			"\ta = aint()",
+			""
+		]
+	}
+}
