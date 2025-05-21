@@ -1,14 +1,13 @@
 from os import path
-from math import isqrt, gcd, ceil, floor
-import re, sys
+import sys, math
 
-# PYKT073
+# II.12
 input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
 sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
-def printlist(a): print(' '.join(map(str, a)))
+tostr = lambda a: ' '.join(map(str, a))
 def fileio():
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
@@ -17,12 +16,18 @@ def fileio():
 if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     fileio()
 
-n = nint()
-poems = "".join(str(len(input().split())) for _ in range(n))
-poems = poems.replace('7777', '2').replace('68', '1') 
-poems = re.sub(r'1+', '1', poems)
-# while '11' in poems: 
-#     poems = poems.replace('11', '1') # 6868...68 -> 11...1 -ds> 1
+a0, b0, c0 = mint()
+a1, b1, c1 = mint()
+seconds = 0
+if a0 > a1:
+    a1 += 24
+if b0 > b1:
+    b1 += 60
+    a1 -= 1
+if c0 > c1:
+    c1 += 60
+    b1 -= 1
 
-print(len(poems), *poems, sep = '\n')
-
+# wow so fast thanks
+seconds = (a1 - a0) * 3600 + (b1 - b0) * 60 + (c1 - c0)
+print(seconds)

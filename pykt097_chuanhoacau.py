@@ -1,14 +1,13 @@
 from os import path
-from math import sqrt, gcd, ceil, floor
-import sys, re
+import sys, math
 
-# idhere
+# PYKT097
 input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
 sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
-def printlist(a): print(' '.join(map(str, a)))
+tostr = lambda a, s: s.join(map(str, a))
 def fileio():
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
@@ -17,5 +16,16 @@ def fileio():
 if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     fileio()
 
-s = s = re.findall(r'(-+)(\d+)', input())
-print(*s)
+for sentence in sys.stdin:
+    if len(sentence) == 0:
+        continue
+    sentence = sentence.lower().split()
+    sentence[0] = sentence[0].capitalize()
+
+    if '.!?'.count(sentence[-1]):
+        sentence[-2] += sentence[-1]
+        sentence.pop()
+    elif not '.!?'.count(sentence[-1][-1]):
+        sentence[-1] += '.'
+        
+    print(tostr(sentence, ' '))

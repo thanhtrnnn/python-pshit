@@ -18,22 +18,25 @@ if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     fileio()
 
 t = nint()
+# observation: gcd of the chosen cards is 1
+# example:
+# 6 3 11 9 -> gcd = 1 -> exists 6 * 1 - 3 * 1 - 11 * 1 + 9 * 1 = 1
 for _ in range(t):
-    a = {0: 0}
-    b = [0]
+    min_cost = {0: 0} # gcd: cost
+    b = [0] # reachable gcds
     n = nint()
-    l, c = aint(), aint()
+    cards, costs = aint(), aint()
 
     for i in range(n):
         for p in b:
-            d = gcd(p, l[i])
-            cost = a[p] + c[i]
-            if d not in a:
-                a[d] = cost
-                b.append(d)
-            elif a[d] > cost:
-                a[d] = cost
-    if 1 not in a:
-        a[1] = -1
+            curr_gcd = gcd(p, cards[i])
+            curr_cost = min_cost[p] + costs[i]
+            if curr_gcd not in min_cost:
+                min_cost[curr_gcd] = curr_cost
+                b.append(curr_gcd)
+            elif min_cost[curr_gcd] > curr_cost:
+                min_cost[curr_gcd] = curr_cost
+    if 1 not in min_cost:
+        min_cost[1] = -1
     
-    print(a[1])
+    print(min_cost[1])

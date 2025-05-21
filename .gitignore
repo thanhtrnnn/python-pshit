@@ -1,0 +1,4 @@
+/ref
+test*.py
+*.pyc
+/practices

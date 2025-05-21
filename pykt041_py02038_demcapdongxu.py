@@ -1,8 +1,8 @@
 from os import path
 from math import isqrt, gcd, ceil, floor
-import re, sys
+import sys
 
-# PYKT073
+# PYKT041, PY02038
 input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
@@ -18,11 +18,17 @@ if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     fileio()
 
 n = nint()
-poems = "".join(str(len(input().split())) for _ in range(n))
-poems = poems.replace('7777', '2').replace('68', '1') 
-poems = re.sub(r'1+', '1', poems)
-# while '11' in poems: 
-#     poems = poems.replace('11', '1') # 6868...68 -> 11...1 -ds> 1
+col = [0] * n
+res = 0
 
-print(len(poems), *poems, sep = '\n')
+for i in range(n):
+    s = input()
+    row_coins = 0
+    for j in range(n):
+        if s[j] == 'C':
+            col[j] += 1
+            row_coins += 1
+    res += row_coins * (row_coins - 1) // 2
 
+res += sum([x * (x - 1) // 2 for x in col])
+print(res)

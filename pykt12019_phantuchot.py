@@ -1,14 +1,13 @@
 from os import path
-from math import isqrt, gcd, ceil, floor
-import sys
+import sys, math
 
-# idhere
+# PYKT12019
 input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
 sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
-def printlist(a): print(' '.join(map(str, a)))
+tostr = lambda a: ' '.join(map(str, a))
 def fileio():
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
@@ -17,23 +16,26 @@ def fileio():
 if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     fileio()
 
-def condition(k):
-    return True # Your condition here
-
 t = nint()
 for _ in range(t):
     n = nint()
     a = aint()
+    res = 0
+    leftmax, rightmin = [0] * n, [0] * n
+    leftmax[0] = a[0]
+    rightmin[n - 1] = a[n - 1]
 
-    lo = 0 # Set initial lower bound
-    hi = 10 * 10 # Set initial upper bound
-    eps = 1e-5      # Tolerance level
+    for i in range(1, n):
+        leftmax[i] = max(leftmax[i - 1], a[i])
+        rightmin[n - i - 1] = min(rightmin[n - i], a[n - i - 1])
 
-    while hi - lo > eps:
-        mid = (lo + hi) / 2.0
-        if (condition(mid)):
-            lo = mid # or adjust hi based on your condition
-        else:
-            hi = mid
+    for i in range(n):
+        pivot = True
+        if i and a[i] < leftmax[i - 1]:
+            pivot = False
+        if i < n - 1 and a[i] >= rightmin[i + 1]:
+            pivot = False
+        if pivot:
+            res += 1
 
-    answer = (lo + hi) / 2.0 # Final answer
+    print(res)

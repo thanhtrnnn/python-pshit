@@ -1,14 +1,13 @@
 from os import path
-from math import isqrt, gcd, ceil, floor
-import sys
+import sys, math
 
-# idhere
+# PYKT078
 input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
 sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
-def printlist(a): print(' '.join(map(str, a)))
+tostr = lambda a: ' '.join(map(str, a))
 def fileio():
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
@@ -17,18 +16,23 @@ def fileio():
 if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     fileio()
 
-n = nint()
-col = [0] * n
-res = 0
+t = nint()
+for _ in range(t):
+    n, m = mint()
+    a = aint()
+    neg, pos = [], []
+    maxi = 0
 
-for i in range(n):
-    s = input()
-    row_coins = 0
-    for j in range(n):
-        if s[j] == 'C':
-            col[j] += 1
-            row_coins += 1
-    res += row_coins * (row_coins - 1) // 2
+    for i in range(n):
+        x = a[i]
+        if x < 0:
+            neg.append(x)
+        else:
+            pos.append(x)
 
-res += sum([x * (x - 1) // 2 for x in col])
-print(res)
+    for i in range(len(pos)):
+        if pos[i] > pos[maxi]:
+            maxi = i
+    pos.insert(maxi, m)
+    
+    print(tostr(neg + pos))
