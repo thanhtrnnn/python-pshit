@@ -3,51 +3,68 @@ from os import path
 import sys, math
 
 # PYKT2049
-input = lambda: sys.stdin.readline().rstrip("\r\n")
+input = lambda: sys.stdin.readline().rstrip("\\r\\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
 sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
 tostr = lambda a: ' '.join(map(str, a))
+# Check if running locally and redirect stdin/stdout if input/output files exist
 if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
 ###############################################
-n = nint()
+n = nint() # Read the number of operations
 
-# Union-Find
-parent = [-1] * (n + 1) # or list(range(n + 1))
+# Union-Find (Disjoint Set Union - DSU) data structure
+# parent array stores the parent of each element.
+# If parent[i] is negative, then i is a root, and -parent[i] is the size of the set.
+parent = [-1] * (n + 1) # Initialize parent array for n+1 elements (1-indexed)
+
+# Find operation: returns the representative (root) of the set containing x
+# Uses path compression for optimization.
 def find(x):
-    if parent[x] < 0: # or parent[x] == x:
+    if parent[x] < 0: # If x is a root (parent[x] is negative)
         return x
+    # Path compression: make all nodes on the path point directly to the root
     parent[x] = find(parent[x])
     return parent[x]
 
-def union(x, y):
+# Union operation (naive version, can lead to TLE due to skewed trees)
+def union(x, y): # TLE
     rootX = find(x)
     rootY = find(y)
-    parent[rootX] = rootY
+    if rootX != rootY: # Only union if they are in different sets
+        parent[rootX] = rootY # Make rootX a child of rootY
 
+# Merge operation (optimized union by rank/size)
+# Merges the sets containing x and y.
+# Uses union by size (or rank) to keep the tree flat.
 def merge(x, y):
-    x = find(x)
-    y = find(y)
+    x_root = find(x) # Find the root of the set containing x
+    y_root = find(y) # Find the root of the set containing y
 
-    if x == y: 
+    if x_root == y_root: # If x and y are already in the same set
         return
-    if parent[y] < parent[x]: 
-        x, y = y, x
     
-    parent[x] += parent[y]
-    parent[y] = x
+    # Union by size: attach the smaller tree to the root of the larger tree
+    # parent[root] stores the negative of the size of the set if it's a root.
+    if parent[y_root] < parent[x_root]: # If size of y_root's set is larger
+        x_root, y_root = y_root, x_root # Swap to make x_root the larger set's root
+    
+    parent[x_root] += parent[y_root] # Add size of y_root's set to x_root's set
+    parent[y_root] = x_root # Make y_root a child of x_root
 
+# Process n operations
 for i in range(n):
-    x, y, z = mint()
-    if z == 1: 
-        merge(x, y) # or union(x, y)
-    else: 
+    x, y, z = mint() # Read x, y, and operation type z
+    if z == 1: # If operation is to merge/union sets containing x and y
+        merge(x, y) # Use the optimized merge operation
+    else: # If operation is to check if x and y are in the same set
+        # Print 1 if they are in the same set (have the same root), 0 otherwise
         print(1 if find(x) == find(y) else 0)
 
-# DFS (TLE)
+# DFS (TLE) - Commented out, as it's not the primary solution used
 # def dfs(u):
 #     visited[u] = True
 #     for v in adj[u]:

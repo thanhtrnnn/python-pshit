@@ -8,19 +8,33 @@ mint = lambda: map(int, input().split())
 sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
 tostr = lambda a: ' '.join(map(str, a))
-def fileio():
+if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
 ###############################################
 
-if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
-    fileio()
+t = nint()
+for _ in range(t):
+    n, c, d = mint()
+    a = sorted(aint())
 
-n = nint()
-adj = [[] for _ in range(n + 1)]
-for _ in range(n - 1):
-    u, v = mint()
-    adj[u].append(v)
-    adj[v].append(u)
+    max1, max2 = 0, 0
+    if c > d: c, d = d, c
+    x1, y1 = c, d
 
-print('Yes' if any(len(adj[u]) == n - 1 for u in range(1, n + 1)) else 'No')
+    while len(a):
+        x = a.pop()
+        if c:   
+            max1 += x
+            c -= 1
+            continue
+        if d:
+            max2 += x
+            d -= 1
+            continue
+        break
+    
+    max1 /= x1
+    max2 /= y1
+
+    print('%.6f' % (max1 + max2))

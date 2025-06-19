@@ -1,16 +1,36 @@
-from bisect import bisect_left
 from os import path
-from math import sqrt, gcd, ceil, floor
-import sys
+import sys, math
 
 # idhere
 input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
+sint = lambda: map(str, input().split())
 aint = lambda: list(map(int, input().split()))
+tostr = lambda a: ' '.join(map(str, a))
 if path.exists("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt"):
     sys.stdin = open("E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt", mode = 'r')
     sys.stdout = open("E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt", mode = 'w')
 ###############################################
+def dfs(u):
+    visited.add(u)
+    for v in adj[u]:
+        if v not in visited:
+            dfs(v)
 
-print(input(), input(), f'{(float(input()) + float(input()) + float(input())):.1f}')
+n = nint()
+m = nint()
+adj = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = mint()
+    adj[u].append(v)
+    adj[v].append(u)
+
+visited = set()
+dfs(1)
+deg = 0
+for i in range(1, n + 1):
+    if i in visited:
+        deg += 1
+
+print('YES' if deg != n else 'NO')
