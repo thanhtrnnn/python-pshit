@@ -10,9 +10,9 @@
 			"mint = lambda: map(int, input().split())",
 			"aint = lambda: list(map(int, input().split()))",
 			"tostr = lambda a: ' '.join(map(str, a))",
-			"if path.exists(\"E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt\"):",
-			"\tsys.stdin = open(\"E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt\", mode = 'r')",
-			"\tsys.stdout = open(\"E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt\", mode = 'w')",
+			"if path.exists(\"input.txt\"):",
+			"\tsys.stdin = open(\"input.txt\", mode = 'r')",
+			"\tsys.stdout = open(\"output.txt\", mode = 'w')",
 			"",
 			"t = nint()",
 			"for _ in range(t):",
@@ -28,9 +28,9 @@
 			"import sys",
 			"from os import path",
 			"",
-			"if path.exists(\"E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt\"):",
-			"\tsys.stdin = open(\"E:/OneDrive - ptit.edu.vn/pro/dsa/input.txt\", mode = 'r')",
-			"\tsys.stdout = open(\"E:/OneDrive - ptit.edu.vn/pro/dsa/output.txt\", mode = 'w')"
+			"if path.exists(\"input.txt\"):",
+			"\tsys.stdin = open(\"input.txt\", mode = 'r')",
+			"\tsys.stdout = open(\"output.txt\", mode = 'w')"
 		]
 	}
 }
