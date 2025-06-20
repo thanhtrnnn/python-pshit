@@ -6,7 +6,6 @@
 			"from os import path",
 			"import sys, math",
 			"",
-			"input = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")",
 			"nint = lambda: int(input())",
 			"mint = lambda: map(int, input().split())",
 			"aint = lambda: list(map(int, input().split()))",

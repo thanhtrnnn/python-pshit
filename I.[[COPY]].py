@@ -7,7 +7,6 @@ if path.exists("input.txt"):
     sys.stdout = open("output.txt", mode = 'w')
 
 
-input = lambda: sys.stdin.readline().rstrip("\r\n")
 nint = lambda: int(input())
 mint = lambda: map(int, input().split())
 aint = lambda: list(map(int, input().split()))
